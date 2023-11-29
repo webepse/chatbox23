@@ -3,11 +3,26 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Connexion from './components/Connexion';
+import NotFound from './components/NotFound';
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+const MyApp = () => (
+  <Router>
+    <Routes>
+      <Route path='/' element={<Connexion />} />
+      <Route path='/pseudo/:pseudo' element={<App />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </Router>
+
+)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <MyApp />
   </React.StrictMode>
 );
 
