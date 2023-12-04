@@ -36,6 +36,7 @@ const App = () => {
     <Formulaire 
       pseudo={pseudo}
       addMessage={addMessage}
+      length={140}
     />
   </div>
    );
