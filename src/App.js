@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Formulaire from './components/Formulaire';
 import Message from './components/Message';
 import { useParams } from 'react-router-dom';
+
+// firebase
+import database from './base';
+import { getDatabase, ref, set, remove, onValue } from 'firebase/database';
+
+//animation
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const App = () => {
   let { login } = useParams()
@@ -10,10 +17,28 @@ const App = () => {
   const [pseudo, setPseudo] = useState(login)
   const [messages, setMessages] = useState({})
 
+  useEffect(()=>{
+    console.log('test')
+    const dbMessagesRef = ref(database, 'messages')
+    // écouter d'event de changement des données
+    onValue(dbMessagesRef, (snapshot) => {
+      const data = snapshot.val()
+      if(data)
+      {
+        setMessages(data)
+      }
+    })
+  },[])
+
   const addMessage = message => {
     const newMessages = {...messages}
     newMessages[`message-${Date.now()}`] = message
-    setMessages(newMessages)
+    Object.keys(newMessages).slice(0,-10).forEach(key => {
+      newMessages[key] = null
+    })
+    set(ref(database,'/'),{
+      messages: newMessages
+    })
   }
 
   const myMessages = Object.keys(messages).map(
