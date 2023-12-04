@@ -16,24 +16,21 @@ const App = () => {
     setMessages(newMessages)
   }
 
-  // messages = [
-  //   'message-123165615' => {
-  //     pseudo: "Jordan", 
-  //     message : "test"
-  //   },
-  //  'message-12126156498' => {
-  //        pseudo: "Test",
-  //        message:'mon deuxième test'
-  //    }
-  // ]
+  const myMessages = Object.keys(messages).map(
+    key => (
+      <Message 
+        key={key}
+        pseudo={messages[key].pseudo}
+        message={messages[key].message}
+      />
+    )
+  )
 
   return ( 
     <div className="box">
     <div>
       <div className="messages">
-        <Message />
-        <Message />
-        <Message />
+        {myMessages}
       </div>
     </div>
     <Formulaire 
