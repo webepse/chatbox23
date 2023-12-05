@@ -1,16 +1,16 @@
 import { initializeApp } from 'firebase/app'
-import { getDatabase } from 'firebase/database'
+import { getFirestore } from 'firebase/firestore'
 
-const firebaseApp = initializeApp({
-    apiKey: "AIzaSyAOyMdYj1Q2d13jIWlsXbqQo7BfKrX2nEw",
-    authDomain: "demo2023-a2568.firebaseapp.com",
-    databaseURL: "https://demo2023-a2568-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "demo2023-a2568",
-    storageBucket: "demo2023-a2568.appspot.com",
-    messagingSenderId: "219764219328",
-    appId: "1:219764219328:web:e8ec561e075fd848effc25"
-})
+const firebaseConfig = {
+    apiKey: "AIzaSyCLr8moZ9oqOME_yPXRo7KioWdiKtKg318",
+    authDomain: "fir-student-15266.firebaseapp.com",
+    projectId: "fir-student-15266",
+    storageBucket: "fir-student-15266.appspot.com",
+    messagingSenderId: "602156417128",
+    appId: "1:602156417128:web:eef1bffbe70a61f5267bdd"
+}
 
-const database = getDatabase(firebaseApp)
+const app = initializeApp(firebaseConfig)
+const firestore = getFirestore(app)
 
-export default database
+export default firestore
