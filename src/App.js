@@ -10,12 +10,15 @@ import { getDatabase, ref, set, remove, onValue } from 'firebase/database';
 
 //animation
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import './animation.css'
 
 const App = () => {
   let { login } = useParams()
 
   const [pseudo, setPseudo] = useState(login)
   const [messages, setMessages] = useState({})
+  const nodeRef = useRef()
+  const messageRef = useRef()
 
   useEffect(()=>{
     console.log('test')
@@ -41,21 +44,32 @@ const App = () => {
     })
   }
 
+  const isUser = myPseudo => myPseudo === pseudo
+
   const myMessages = Object.keys(messages).map(
     key => (
-      <Message 
+      <CSSTransition
         key={key}
-        pseudo={messages[key].pseudo}
-        message={messages[key].message}
-      />
+        timeout={200}
+        classNames={'fade'}
+        nodeRef={nodeRef}
+      >
+        <Message 
+          isUser={isUser}
+          pseudo={messages[key].pseudo}
+          message={messages[key].message}
+        />
+      </CSSTransition>
     )
   )
 
   return ( 
     <div className="box">
     <div>
-      <div className="messages">
-        {myMessages}
+      <div className="messages" ref={messageRef}>
+        <TransitionGroup className='message'>
+          {myMessages}
+        </TransitionGroup>
       </div>
     </div>
     <Formulaire 
